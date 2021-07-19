@@ -60,9 +60,9 @@ select *, (case when diemtb >=8 then 'Giỏi' when diemtb >6.5 then 'Khá' else 
 from sinhvien;
 -- Số lượng sinh viên loại giỏi, loại khá, loại trung bình (trong cùng 1 query)
 select
-count(case when diemtb > 8 then 1 else null end) as "Giỏi",
-count(case when diemtb >= 6.5 and diemtb <= 8 then 1 else null end) as "Khá",
-count(case when diemtb < 6.5 then 1 else null end) as "Trung bình"
+count(case when diemtb > 8 then 1 end) as "Giỏi",
+count(case when diemtb >= 6.5 and diemtb <= 8 then 1 end) as "Khá",
+count(case when diemtb < 6.5 then 1 end) as "Trung bình"
 from sinhvien;
 -- Số lượng sinh viên loại giỏi, khá, trung bình của từng lớp (trong cùng 1 query)
 select lop.ten as 'Tên lớp',count(case when diemtb > 8 then 1 else null end) as "Giỏi",
@@ -71,9 +71,10 @@ count(case when diemtb < 6.5 then 1 else null end) as "Trung bình"
 from lop inner join sinhvien on lop.id = sinhvien.lop
 group by lop.id;
 -- Tên lớp, danh sách các sinh viên của lớp sắp xếp theo điểm trung bình giảm dần
-select *
-from sinhvien
-order by diemtb desc;
+select sinhvien.*, lop.ten
+from lop inner join sinhvien on lop.id = sinhvien.lop
+order by lop.ten,diemtb desc;
+
 -- Tên lớp, tổng số sinh viên của lớp
 select lop.ten,count(sinhvien.maso) as 'Số lượng SV'
 from lop inner join sinhvien on lop.id = sinhvien.lop
