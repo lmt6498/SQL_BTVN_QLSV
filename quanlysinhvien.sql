@@ -84,7 +84,7 @@ from ((khoa inner join lop on khoa.id = lop.khoa)inner join sinhvien on lop.id =
 group by lop.id;
 -- Tên khoa, tên lớp, điểm trung bình của sinh viên (chú ý: liệt kê tất cả các khoa và lớp, kể cả khoa và lớp chưa có sinh viên)
 select khoa.ten as "Tên khoa",lop.ten as "Tên lớp",sinhvien.ten as "Tên sinh viên",sinhvien.diemtb as "Điểm trung bình"
-from ((khoa inner join lop on khoa.id = lop.khoa)inner join sinhvien on lop.id = sinhvien.lop)
+from ((khoa left join lop on khoa.id = lop.khoa)left join sinhvien on lop.id = sinhvien.lop)
 group by khoa.id,sinhvien.maso;
 -- Tên khoa, tên lớp, họ tên, ngày sinh, điểm trung bình của sinh viên có điểm trung bình cao nhất lớp
 select khoa.ten as "Tên khoa",lop.ten as "Tên lớp",sinhvien.ten as "Tên sinh viên",sinhvien.diemtb as "Điểm trung bình"
